@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bloons TD Battles 6 — Basics & Strategies</title>
+  <!-- Google Fonts: rounded bold look -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1220; /* dark sky */
+      --card:#0f1724;
+      --accent:#ffcd00; /* banana yellow */
+      --muted:#9aa7b2;
+      --green:#21d07a;
+      --red:#ff4d6d;
+      --glass: rgba(255,255,255,0.04);
+    }
+
+    /* Reset-ish */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(255,205,0,0.03), transparent),
+                  linear-gradient(180deg,#071123 0%, var(--bg) 100%);
+      color: #e6eef6;
+      font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;align-items:center;justify-content:center;padding:3rem;
+    }
+
+    .page{
+      width:100%;max-width:1100px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:20px;padding:36px;box-shadow:0 10px 40px rgba(2,6,23,0.7);position:relative;overflow:hidden;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    /* Game header */
+    .title{
+      font-family:'Fredoka One', 'Fredoka', system-ui;
+      text-align:center;font-size:42px;letter-spacing:1px;color:var(--accent);
+      text-shadow:0 6px 18px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.02);
+      margin:0 0 8px 0;
+    }
+    .subtitle{color:var(--muted);text-align:center;margin:0 0 24px 0;font-weight:400}
+
+    /* content */
+    .content{
+      display:grid;grid-template-columns: 1fr 520px 1fr;gap:20px;align-items:start;
+    }
+
+    /* center card */
+    .card{
+      grid-column:2/3;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015));
+      border-radius:14px;padding:22px;border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .section{margin-bottom:18px}
+    h2{font-family:'Fredoka One';margin:8px 0 12px 0;font-size:20px;color:var(--accent)}
+    p{margin:6px 0;color:#d7e3ef}
+
+    /* strategy lists */
+    .lists{display:flex;gap:16px;flex-wrap:wrap}
+    ul{padding-left:18px;margin:6px 0}
+    li{margin:6px 0}
+
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--glass);border:1px solid rgba(255,255,255,0.03);font-weight:700}
+
+    /* side panels (monkeys & bloons) */
+    .side{
+      display:flex;flex-direction:column;align-items:center;gap:18px;padding-top:4px
+    }
+    .side .sprite{
+      width:140px;height:140px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:48px
+    }
+
+    /* small decorative bloons */
+    .bloon-row{display:flex;gap:6px;align-items:center;justify-content:center}
+    .bloon{width:34px;height:34px;border-radius:99px;display:inline-flex;align-items:center;justify-content:center;font-weight:800}
+    .bloon.red{background:#ff4b4b;color:white}
+    .bloon.blue{background:#4bc3ff;color:white}
+    .bloon.green{background:#4bff87;color:#043220}
+    .bloon.yellow{background:#ffea4b;color:#3b2b00}
+    .monkey-face{font-size:34px}
+
+    /* Responsive smaller screens */
+    @media (max-width:980px){
+      .content{grid-template-columns:1fr;}
+      .card{grid-column:1/2}
+      .side{flex-direction:row;justify-content:center}
+      .side .sprite{width:86px;height:86px;font-size:26px}
+    }
+
+    /* decorative footer */
+    .footer{display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px dashed rgba(255,255,255,0.02);margin-top:12px;color:var(--muted);font-size:13px}
+
+    /* strategy boxes */
+    .box{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015));padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.025)}
+
+    /* small badges */
+    .badge{display:inline-block;padding:6px 8px;border-radius:8px;font-weight:700}
+    .badge.begin{background:rgba(33,208,122,0.12);color:var(--green);border:1px solid rgba(33,208,122,0.12)}
+    .badge.adv{background:rgba(255,77,109,0.06);color:var(--red);border:1px solid rgba(255,77,109,0.06)}
+
+  </style>
+</head>
+<body>
+  <div class="page" role="main">
+    <h1 class="title">Bloons TD Battles 6 — Basics & Strategies</h1>
+    <p class="subtitle">Quick guide with beginner and advanced strategy lists — styled in the game's playful theme.</p>
+
+    <div class="content">
+
+      <!-- left side: monkeys / bloons -->
+      <aside class="side" aria-hidden="true">
+        <div class="sprite" title="Hero Monkey">🐵</div>
+        <div class="bloon-row">
+          <div class="bloon red">R</div>
+          <div class="bloon blue">B</div>
+          <div class="bloon green">G</div>
+        </div>
+        <div class="sprite" title="Bomber Monkey">💣</div>
+      </aside>
+
+      <!-- center card -->
+      <article class="card">
+        <section class="section">
+          <h2>What is BTDB6?</h2>
+          <p><a href="https://en.wikipedia.org/wiki/Bloons_Tower_Defense" target="_blank">Bloons Tower Defense Battles 6</a> (BTDB6) is a competitive, tower-defense-vs-tower-defense game where two players build towers, upgrade them, and send bloons to pressure the other player. Winning requires map knowledge, timing, economy management, and prediction.</p>
+        </section>
+
+        <section class="section">
+          <h2>Core Concepts</h2>
+          <div class="lists">
+            <div class="box" style="flex:1">
+              <p><span class="pill">Towers</span> place monkeys and buildings to pop incoming bloons. Each tower has upgrade paths with unique roles (single-target, splash, support, income, etc.).</p>
+              <p><span class="pill">Eco</span> (income): sending bloons builds your cash and economy; managing eco vs defense is crucial.</p>
+            </div>
+            <div class="box" style="flex:1">
+              <p><span class="pill">Sending</span> bloons pressures opponents by forcing them to spend. Timing sends (lead, ceramic waves) is as important as strong defense.</p>
+              <p><span class="pill">Micro</span> and <span class="pill">Macro</span> — fast reactions (micros) and long-term planning (macro) both matter.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Popular Beginner Strategies <span class="badge begin">Beginner</span></h2>
+          <div class="box">
+            <ul>
+              <li><strong>Basic Rush Defense</strong> — Place a cheap burst tower (e.g., <a href="https://bloons.fandom.com/wiki/Dart_Monkey" target="_blank">Dart Monkey</a> or <a href="https://bloons.fandom.com/wiki/Ninja_Monkey" target="_blank">Ninja Monkey</a>) early to stop common rushes while building eco.</li>
+              <li><strong>Two-Tower Combo</strong> — Combine a high single-target (like <a href="https://bloons.fandom.com/wiki/Alchemist" target="_blank">Alchemist</a>-buffed tower) with a splash (<a href="https://bloons.fandom.com/wiki/Bomb_Shooter" target="_blank">Bomb Shooter</a>) for general-purpose defense.</li>
+              <li><strong>Safe Eco</strong> — Send small waves (reds/blues) to build cash while keeping a simple, reliable defense rather than all-inning on early offense.</li>
+              <li><strong>Map Control</strong> — Place towers where they cover long paths or curves for maximum pops; corners and choke points are best.</li>
+              <li><strong>Learn Counters</strong> — Learn which towers pop leads/cers/regen camo — e.g., use towers with lead-popping or alchemist buffs.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Popular Advanced Strategies <span class="badge adv">Advanced</span></h2>
+          <div class="box">
+            <ul>
+              <li><strong>Eco Bluff</strong> — Fake weak defense to bait opponent into sending early heavy pushes; punish them with a sudden late-game spike (MOAB/CHIMPS tech or upgraded towers).</li>
+              <li><strong>Stratified Sends</strong> — Mix sends precisely: use lead + ceramic streams timed to break certain defenses; stagger sends to break micro-based repairs.</li>
+              <li><strong>Buff Stacking</strong> — Use support towers (e.g., <a href="https://bloons.fandom.com/wiki/Alchemist" target="_blank">Alchemist</a>, <a href="https://bloons.fandom.com/wiki/Monkey_Village" target="_blank">Monkey Village</a>) to stack damage or pierce properties (camo, lead) and then pair with late-game towers for huge DPS.
+                <ul>
+                  <li>Example: <a href="https://bloons.fandom.com/wiki/Alchemist" target="_blank">Alchemist</a> buff + Sniper + Glue for sustained high single-target vs MOAB-class bloons.</li>
+                </ul>
+              </li>
+              <li><strong>Split-Tech</strong> — Build dual-purpose lanes: one side as strong anti-MOAB, the other as mass-popper; switch focus as opponent sends different waves.</li>
+              <li><strong>Resource Denial</strong> — Aggressively send high-value bloons to break opponent's towers and force them to stop ecoing; timed heavy sends can reset their economy.
+              </li>
+              <li><strong>Micro-Perfect Ballooning</strong> — Use abilities precisely (freeze, stun, bombing runs) to conserve tower placements and win clutch rounds.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2>Tiny Tips & Cheat Sheet</h2>
+          <div class="lists">
+            <div class="box" style="flex:1">
+              <p><strong>Cheap Counters</strong>: Glue + Bomb; <a href="https://bloons.fandom.com/wiki/Ninja_Monkey" target="_blank">Ninja Monkey</a> for camo + <a href="https://bloons.fandom.com/wiki/Alchemist" target="_blank">Alchemist</a>.
+              </p>
+              <p><strong>Timing</strong>: Save abilities for waves with MOABs/Ceramics; don't panic-use on small leaks.</p>
+            </div>
+            <div class="box" style="flex:1">
+              <p><strong>When to send</strong>: If opponent eco's, send moderate pressure to force them to spend. If they're strong defensively, consider building larger eco before heavy sends.</p>
+              <p><strong>Practice</strong>: Play maps with different path shapes — looping maps change tower value vs long-straight maps.</p>
+            </div>
+          </div>
+        </section>
+
+        <div class="footer">
+          <div>Designed for quick learning • <span style="opacity:0.9">BTDB6</span></div>
+          <div style="text-align:right;color:var(--muted)">Want custom strategy for a specific map or tower? Ask me!</div>
+        </div>
+      </article>
+
+      <!-- right side: more bloons / monkeys -->
+      <aside class="side" aria-hidden="true">
+        <div class="sprite" title="<a href="https://bloons.fandom.com/wiki/Dart_Monkey" target="_blank">Dart Monkey</a>">🏹</div>
+        <div class="bloon-row">
+          <div class="bloon yellow">Y</div>
+          <div class="bloon blue">B</div>
+          <div class="bloon red">R</div>
+          <div class="bloon green">G</div>
+        </div>
+        <div class="sprite" title="Tack Shooter">🎯</div>
+      </aside>
+
+    </div>
+  </div>
+</body>
+</html>
