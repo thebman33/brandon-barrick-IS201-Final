@@ -37,6 +37,7 @@ body{
 }
 .tableauPlaceholder{
     margin: auto;
+    padding: 2em;
 }
 .video iframe{
     display: block;
