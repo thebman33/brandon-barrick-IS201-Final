@@ -96,9 +96,25 @@
 </div>
 
 <script>
+    const snakeImg = new Image();
+snakeImg.src ="pictures/Untitled.jpg";
+const snakeImg1 = new Image();
+snakeImg1.src = "pictures/Untitled.jpg";
+
+const snakeImg2 = new Image();
+snakeImg2.src = "pictures/drake-maye-16x9-1.webp";
+
+let frameOffset = 0;
+
+
+const foodImg = new Image();
+foodImg.src = "pictures/American_football.svg.png";
+const startBtn = document.getElementById("startBtn");
+
+
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
-const startBtn = document.getElementById("startBtn");
+
 
 const grid = 20;
 let snake, food, dx, dy, score, speed, gameLoop, paused, running;
@@ -160,23 +176,37 @@ function update() {
     } else {
         snake.pop();
     }
-
+    
     draw();
+    frameOffset++;
+
+
 }
 
 function draw() {
     ctx.clearRect(0, 0, 400, 400);
 
-    // snake
-    ctx.fillStyle = "#FFFFFF";
-    snake.forEach(s => ctx.fillRect(s.x, s.y, grid - 1, grid - 1));
+    snake.forEach((segment, index) => {
+        const img = (index + frameOffset) % 2 === 0
+            ? snakeImg1
+            : snakeImg2;
 
-    // food colors
-    if (food.type === "normal") ctx.fillStyle = "#C8032B";
-    if (food.type === "bonus") ctx.fillStyle = "gold";
-    if (food.type === "slow") ctx.fillStyle = "dodgerblue";
+        ctx.drawImage(
+            img,
+            segment.x + 1,
+            segment.y + 1,
+            grid - 2,
+            grid - 2
+        );
+    });
 
-    ctx.fillRect(food.x, food.y, grid - 1, grid - 1);
+    ctx.drawImage(
+        foodImg,
+        food.x + 1,
+        food.y + 1,
+        grid - 2,
+        grid - 2
+    );
 }
 
 function updateHUD() {
