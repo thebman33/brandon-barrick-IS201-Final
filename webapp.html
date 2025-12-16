@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Snake Game</title>
+
+<style>
+    :root {
+        --ncs-red: #C8032B;
+        --oxford-blue: #002145;
+        --white: #FFFFFF;
+        --ash-gray: #B0B7BC;
+    }
+
+    body {
+        background: var(--oxford-blue);
+        color: var(--white);
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .game-container {
+        text-align: center;
+        background: #00172f;
+        padding: 20px 30px 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.6);
+    }
+
+    h1 {
+        margin-bottom: 10px;
+        color: var(--white);
+    }
+
+    canvas {
+        background: #0b223d;
+        border: 3px solid var(--ncs-red);
+        box-shadow: 0 0 15px var(--ncs-red);
+        display: block;
+        margin: 0 auto;
+    }
+
+    .hud {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        color: var(--ash-gray);
+    }
+
+    button {
+        margin-top: 15px;
+        padding: 10px 18px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        background: var(--ncs-red);
+        border: none;
+        color: var(--white);
+        border-radius: 5px;
+    }
+
+    button:hover {
+        background: #e00533;
+    }
+
+    .instructions {
+        font-size: 13px;
+        margin-top: 12px;
+        color: var(--ash-gray);
+    }
+</style>
+</head>
+
+<body>
+<div class="game-container">
+    <h1>🐍 Snake Game</h1>
+
+    <canvas id="game" width="400" height="400"></canvas>
+
+    <div class="hud">
+        <div>Score: <span id="score">0</span></div>
+        <div>Speed: <span id="speed">1</span></div>
+    </div>
+
+    <button id="startBtn">Start Game</button>
+
+    <div class="instructions">
+        Arrow Keys = Move • Space = Pause<br>
+        Red = Normal • Gold = Bonus • Blue = Slow
+    </div>
+</div>
+
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+const startBtn = document.getElementById("startBtn");
+
+const grid = 20;
+let snake, food, dx, dy, score, speed, gameLoop, paused, running;
+
+function initGame() {
+    snake = [{x: 200, y: 200}];
+    dx = grid;
+    dy = 0;
+    score = 0;
+    speed = 1;
+    paused = false;
+    running = true;
+    placeFood();
+    updateHUD();
+    clearInterval(gameLoop);
+    gameLoop = setInterval(update, 150);
+}
+
+function placeFood() {
+    const types = ["normal", "bonus", "slow"];
+    food = {
+        x: Math.floor(Math.random() * 20) * grid,
+        y: Math.floor(Math.random() * 20) * grid,
+        type: types[Math.floor(Math.random() * types.length)]
+    };
+}
+
+function update() {
+    if (!running || paused) return;
+
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+    // wall collision
+    if (head.x < 0 || head.y < 0 || head.x >= 400 || head.y >= 400) {
+        return stopGame();
+    }
+
+    // self collision
+    for (let s of snake) {
+        if (head.x === s.x && head.y === s.y) {
+            return stopGame();
+        }
+    }
+
+    snake.unshift(head);
+
+    // food collision
+    if (head.x === food.x && head.y === food.y) {
+        if (food.type === "normal") score += 1;
+        if (food.type === "bonus") score += 3;
+        if (food.type === "slow") speed = Math.max(1, speed - 1);
+
+        speed++;
+        clearInterval(gameLoop);
+        gameLoop = setInterval(update, Math.max(60, 150 - speed * 10));
+
+        placeFood();
+        updateHUD();
+    } else {
+        snake.pop();
+    }
+
+    draw();
+}
+
+function draw() {
+    ctx.clearRect(0, 0, 400, 400);
+
+    // snake
+    ctx.fillStyle = "#FFFFFF";
+    snake.forEach(s => ctx.fillRect(s.x, s.y, grid - 1, grid - 1));
+
+    // food colors
+    if (food.type === "normal") ctx.fillStyle = "#C8032B";
+    if (food.type === "bonus") ctx.fillStyle = "gold";
+    if (food.type === "slow") ctx.fillStyle = "dodgerblue";
+
+    ctx.fillRect(food.x, food.y, grid - 1, grid - 1);
+}
+
+function updateHUD() {
+    document.getElementById("score").textContent = score;
+    document.getElementById("speed").textContent = speed;
+}
+
+function stopGame() {
+    running = false;
+    clearInterval(gameLoop);
+    startBtn.textContent = "Restart Game";
+}
+
+document.addEventListener("keydown", e => {
+    if (!running) return;
+
+    if (e.key === "ArrowUp" && dy === 0) { dx = 0; dy = -grid; }
+    if (e.key === "ArrowDown" && dy === 0) { dx = 0; dy = grid; }
+    if (e.key === "ArrowLeft" && dx === 0) { dx = -grid; dy = 0; }
+    if (e.key === "ArrowRight" && dx === 0) { dx = grid; dy = 0; }
+    if (e.key === " ") paused = !paused;
+});
+
+startBtn.addEventListener("click", () => {
+    initGame();
+    startBtn.textContent = "Restart Game";
+});
+
+// initial draw
+ctx.fillStyle = "#B0B7BC";
+ctx.font = "20px Arial";
+ctx.fillText("Press Start Game", 115, 210);
+</script>
+</body>
+</html>

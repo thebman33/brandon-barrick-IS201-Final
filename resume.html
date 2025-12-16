@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brandon Barrick | Resume</title>
+
+<style>
+    :root {
+        --primary: #1f2933;      /* charcoal */
+        --secondary: #374151;    /* dark gray */
+        --accent: #2563eb;       /* muted professional blue */
+        --light: #f9fafb;        /* off-white */
+        --border: #d1d5db;       /* light gray */
+    }
+
+    body {
+        margin: 0;
+        background: #e5e7eb;
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        color: var(--primary);
+        line-height: 1.6;
+    }
+
+    .resume {
+        max-width: 900px;
+        margin: 40px auto;
+        background: var(--light);
+        padding: 40px 50px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        border-radius: 6px;
+    }
+
+    header {
+        border-bottom: 3px solid var(--accent);
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 36px;
+        letter-spacing: 1px;
+    }
+
+    header .contact {
+        margin-top: 10px;
+        font-size: 15px;
+        color: var(--secondary);
+    }
+
+    header .contact span {
+        margin-right: 20px;
+    }
+
+    section {
+        margin-bottom: 28px;
+    }
+
+    h2 {
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--accent);
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 6px;
+        margin-bottom: 15px;
+    }
+
+    .job, .education-item {
+        margin-bottom: 18px;
+    }
+
+    .job-title, .degree {
+        font-weight: bold;
+        font-size: 17px;
+    }
+
+    .company, .school {
+        font-style: italic;
+        color: var(--secondary);
+    }
+
+    .date-location {
+        float: right;
+        color: var(--secondary);
+        font-size: 14px;
+    }
+
+    ul {
+        margin: 8px 0 0 20px;
+    }
+
+    li {
+        margin-bottom: 6px;
+    }
+
+    .skills ul {
+        columns: 2;
+        list-style-type: square;
+    }
+
+    footer {
+        text-align: center;
+        font-size: 14px;
+        color: var(--secondary);
+        margin-top: 30px;
+    }
+
+    @media (max-width: 700px) {
+        .resume {
+            padding: 30px 25px;
+        }
+
+        .date-location {
+            float: none;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .skills ul {
+            columns: 1;
+        }
+    }
+</style>
+</head>
+
+<body>
+<div class="resume">
+
+<header>
+    <h1>Brandon Barrick</h1>
+    <div class="contact">
+        <span>Provo, UT</span>
+        <span>brandonbarrick3@gmail.com</span>
+        <span>(508) 272-1489</span>
+    </div>
+</header>
+
+<section>
+    <h2>Professional Summary</h2>
+    <p>
+        Detail-oriented Information Systems student with experience in technical support, digital design, and customer service. Skilled in troubleshooting systems, supporting production workflows, and collaborating in team environments. Strong communicator with leadership and service experience.
+    </p>
+</section>
+
+<section>
+    <h2>Employment</h2>
+
+    <div class="job">
+        <div class="job-title">Sign Maker
+            <span class="date-location">June 2020 – August 2022</span>
+        </div>
+        <div class="company">Signs By Tomorrow – Norton, MA</div>
+        <ul>
+            <li>Operated large-scale printers and CNC machines for commercial signage</li>
+            <li>Designed and produced graphics for local businesses</li>
+            <li>Installed and printed vehicle graphics</li>
+            <li>Collaborated with team members to meet customer needs and deadlines</li>
+            <li>Troubleshot and resolved computer and software issues</li>
+        </ul>
+    </div>
+
+    <div class="job">
+        <div class="job-title">Healthcare Assistant
+            <span class="date-location">June 2022 – August 2022</span>
+        </div>
+        <div class="company">Community Connection Healthcare – Norton, MA</div>
+        <ul>
+            <li>Provided in-home care for senior citizens</li>
+            <li>Communicated directly with clients to assess and meet individual needs</li>
+            <li>Worked with management to improve working conditions</li>
+        </ul>
+    </div>
+
+    <div class="job">
+        <div class="job-title">Tech Specialist
+            <span class="date-location">August 2021 – August 2022</span>
+        </div>
+        <div class="company">Sweet Stuff Bake Shop – Norton, MA</div>
+        <ul>
+            <li>Built and maintained computer and NAS systems</li>
+            <li>Supported POS systems and resolved technical issues</li>
+            <li>Assisted customers while providing technical troubleshooting</li>
+        </ul>
+    </div>
+</section>
+
+<section>
+    <h2>Education</h2>
+
+    <div class="education-item">
+        <div class="degree">B.S. in Information Systems (Anticipated)
+            <span class="date-location">2024 – 2029</span>
+        </div>
+        <div class="school">Brigham Young University – Provo, UT</div>
+    </div>
+
+    <div class="education-item">
+        <div class="degree">High School Diploma
+            <span class="date-location">May 2022</span>
+        </div>
+        <div class="school">Norton High School – Norton, MA</div>
+        <ul>
+            <li>GPA: ~3.9</li>
+            <li>Honor Roll</li>
+            <li>Member of National Honor Societies: Science, Music, English, History</li>
+        </ul>
+    </div>
+</section>
+
+<section class="skills">
+    <h2>Technical Skills</h2>
+    <ul>
+        <li>Adobe Illustrator (1.5 years)</li>
+        <li>Adobe Premiere Pro (1 year)</li>
+        <li>Canva</li>
+        <li>Computer hardware setup & troubleshooting</li>
+        <li>NAS systems</li>
+        <li>POS system support</li>
+    </ul>
+</section>
+
+<footer>
+    References available upon request
+</footer>
+
+</div>
+</body>
+</html>
