@@ -34,11 +34,17 @@ body{
 } */
 .image{
     text-align: center;
+    
+}
+.image img {
+    max-width: 70vw;
+    height: auto;
 }
 .tableauPlaceholder{
     margin: auto;
     padding: 2em;
 }
+
 .video iframe{
     display: block;
     margin: auto;
